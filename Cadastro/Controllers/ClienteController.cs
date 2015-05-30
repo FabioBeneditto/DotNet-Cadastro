@@ -105,5 +105,11 @@ namespace Cadastro.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        public ActionResult Details(int id)
+        {
+            Cliente cli = db.Cliente.First<Cliente>(c => c.codigo == id);
+            return View(cli);
+        }
     }
 }

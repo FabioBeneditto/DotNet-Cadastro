@@ -4,7 +4,16 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="LivrariaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="LivrariaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Autor">
+          <Key>
+            <PropertyRef Name="CodAutor" />
+          </Key>
+          <Property Name="CodAutor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="100" />
+          <Property Name="CPF" Type="varchar" MaxLength="15" />
+          <Property Name="DtNascimento" Type="datetime" />
+        </EntityType>
         <EntityType Name="Cliente">
           <Key>
             <PropertyRef Name="codigo" />
@@ -15,11 +24,66 @@
           <Property Name="email" Type="varchar" MaxLength="100" />
           <Property Name="telefone" Type="varchar" MaxLength="12" />
         </EntityType>
+        <EntityType Name="Genero">
+          <Key>
+            <PropertyRef Name="codGenero" />
+          </Key>
+          <Property Name="codGenero" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="faixaEtaria" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Livro">
+          <Key>
+            <PropertyRef Name="CodLivro" />
+          </Key>
+          <Property Name="CodLivro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Titulo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="NumPaginas" Type="int" Nullable="false" />
+          <Property Name="Ano" Type="int" Nullable="false" />
+          <Property Name="Editora" Type="varchar" MaxLength="100" />
+          <Property Name="Preco" Type="money" Nullable="false" />
+          <Property Name="CodAutor" Type="int" Nullable="false" />
+          <Property Name="codGenero" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Livro_Autor">
+          <End Role="Autor" Type="Self.Autor" Multiplicity="1" />
+          <End Role="Livro" Type="Self.Livro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autor">
+              <PropertyRef Name="CodAutor" />
+            </Principal>
+            <Dependent Role="Livro">
+              <PropertyRef Name="CodAutor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Livro_Genero">
+          <End Role="Genero" Type="Self.Genero" Multiplicity="1" />
+          <End Role="Livro" Type="Self.Livro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genero">
+              <PropertyRef Name="codGenero" />
+            </Principal>
+            <Dependent Role="Livro">
+              <PropertyRef Name="codGenero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="LivrariaModelStoreContainer">
+          <EntitySet Name="Autor" EntityType="Self.Autor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Genero" EntityType="Self.Genero" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Livro" EntityType="Self.Livro" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Livro_Autor" Association="Self.FK_Livro_Autor">
+            <End Role="Autor" EntitySet="Autor" />
+            <End Role="Livro" EntitySet="Livro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Livro_Genero" Association="Self.FK_Livro_Genero">
+            <End Role="Genero" EntitySet="Genero" />
+            <End Role="Livro" EntitySet="Livro" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LivrariaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -35,7 +99,76 @@
         </EntityType>
         <EntityContainer Name="CadastroEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+          <EntitySet Name="Autor" EntityType="LivrariaModel.Autor" />
+          <EntitySet Name="Genero" EntityType="LivrariaModel.Genero" />
+          <EntitySet Name="Livro" EntityType="LivrariaModel.Livro" />
+          <AssociationSet Name="FK_Livro_Autor" Association="LivrariaModel.FK_Livro_Autor">
+            <End Role="Autor" EntitySet="Autor" />
+            <End Role="Livro" EntitySet="Livro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Livro_Genero" Association="LivrariaModel.FK_Livro_Genero">
+            <End Role="Genero" EntitySet="Genero" />
+            <End Role="Livro" EntitySet="Livro" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Autor">
+          <Key>
+            <PropertyRef Name="CodAutor" />
+          </Key>
+          <Property Name="CodAutor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CPF" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="DtNascimento" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Livro" Relationship="LivrariaModel.FK_Livro_Autor" FromRole="Autor" ToRole="Livro" />
+        </EntityType>
+        <EntityType Name="Genero">
+          <Key>
+            <PropertyRef Name="codGenero" />
+          </Key>
+          <Property Name="codGenero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descricao" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="faixaEtaria" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Livro" Relationship="LivrariaModel.FK_Livro_Genero" FromRole="Genero" ToRole="Livro" />
+        </EntityType>
+        <EntityType Name="Livro">
+          <Key>
+            <PropertyRef Name="CodLivro" />
+          </Key>
+          <Property Name="CodLivro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Titulo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NumPaginas" Type="Int32" Nullable="false" />
+          <Property Name="Ano" Type="Int32" Nullable="false" />
+          <Property Name="Editora" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Preco" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="CodAutor" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Autor" Relationship="LivrariaModel.FK_Livro_Autor" FromRole="Livro" ToRole="Autor" />
+          <Property Name="codGenero" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Genero" Relationship="LivrariaModel.FK_Livro_Genero" FromRole="Livro" ToRole="Genero" />
+        </EntityType>
+        <Association Name="FK_Livro_Autor">
+          <End Type="LivrariaModel.Autor" Role="Autor" Multiplicity="1" />
+          <End Type="LivrariaModel.Livro" Role="Livro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autor">
+              <PropertyRef Name="CodAutor" />
+            </Principal>
+            <Dependent Role="Livro">
+              <PropertyRef Name="CodAutor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Livro_Genero">
+          <End Type="LivrariaModel.Genero" Role="Genero" Multiplicity="1" />
+          <End Type="LivrariaModel.Livro" Role="Livro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genero">
+              <PropertyRef Name="codGenero" />
+            </Principal>
+            <Dependent Role="Livro">
+              <PropertyRef Name="codGenero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -50,6 +183,39 @@
                 <ScalarProperty Name="dataNascimento" ColumnName="dataNascimento" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="telefone" ColumnName="telefone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Autor">
+            <EntityTypeMapping TypeName="LivrariaModel.Autor">
+              <MappingFragment StoreEntitySet="Autor">
+                <ScalarProperty Name="DtNascimento" ColumnName="DtNascimento" />
+                <ScalarProperty Name="CPF" ColumnName="CPF" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="CodAutor" ColumnName="CodAutor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genero">
+            <EntityTypeMapping TypeName="LivrariaModel.Genero">
+              <MappingFragment StoreEntitySet="Genero">
+                <ScalarProperty Name="faixaEtaria" ColumnName="faixaEtaria" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+                <ScalarProperty Name="codGenero" ColumnName="codGenero" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Livro">
+            <EntityTypeMapping TypeName="LivrariaModel.Livro">
+              <MappingFragment StoreEntitySet="Livro">
+                <ScalarProperty Name="codGenero" ColumnName="codGenero" />
+                <ScalarProperty Name="CodAutor" ColumnName="CodAutor" />
+                <ScalarProperty Name="Preco" ColumnName="Preco" />
+                <ScalarProperty Name="Editora" ColumnName="Editora" />
+                <ScalarProperty Name="Ano" ColumnName="Ano" />
+                <ScalarProperty Name="NumPaginas" ColumnName="NumPaginas" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="CodLivro" ColumnName="CodLivro" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

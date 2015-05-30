@@ -26,5 +26,8 @@ namespace Cadastro.Models
         }
     
         public virtual DbSet<Cliente> Cliente { get; set; }
+        public virtual DbSet<Autor> Autor { get; set; }
+        public virtual DbSet<Genero> Genero { get; set; }
+        public virtual DbSet<Livro> Livro { get; set; }
     }
 }

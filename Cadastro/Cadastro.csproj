@@ -150,7 +150,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Autor.cs">
+      <DependentUpon>Modelo_Cadastro.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Cliente.cs">
+      <DependentUpon>Modelo_Cadastro.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Genero.cs">
+      <DependentUpon>Modelo_Cadastro.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Livro.cs">
       <DependentUpon>Modelo_Cadastro.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Modelo_Cadastro.Context.cs">
@@ -171,6 +180,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -204,6 +217,7 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <EntityDeploy Include="Models\Modelo_Cadastro.edmx">
@@ -223,7 +237,12 @@
       <DependentUpon>Modelo_Cadastro.edmx</DependentUpon>
       <LastGenOutput>Modelo_Cadastro.cs</LastGenOutput>
     </Content>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
@@ -256,6 +275,7 @@
     <Content Include="Views\Cliente\Edit.cshtml" />
     <Content Include="Views\Cliente\EditPost.cshtml" />
     <Content Include="Views\Cliente\Delete.cshtml" />
+    <Content Include="Views\Cliente\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
