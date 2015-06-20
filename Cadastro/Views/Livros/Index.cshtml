@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Cadastro.Models.Livro>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Titulo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumPaginas)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ano)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Editora)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Preco)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Autor.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Genero.descricao)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Titulo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumPaginas)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ano)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Editora)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Preco)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Autor.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Genero.descricao)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CodLivro }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CodLivro }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CodLivro })
+        </td>
+    </tr>
+}
+
+</table>

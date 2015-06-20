@@ -8,7 +8,7 @@
         <EntityTypeShape EntityType="LivrariaModel.Cliente" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="LivrariaModel.Autor" Width="1.5" PointX="3" PointY="0.875" />
         <EntityTypeShape EntityType="LivrariaModel.Genero" Width="1.5" PointX="7.75" PointY="2.625" />
-        <EntityTypeShape EntityType="LivrariaModel.Livro" Width="1.5" PointX="5.625" PointY="0.75" />
+        <EntityTypeShape EntityType="LivrariaModel.Livro" Width="1.5" PointX="5.625" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="LivrariaModel.FK_Livro_Autor" />
         <AssociationConnector Association="LivrariaModel.FK_Livro_Genero" />
       </Diagram>
